@@ -13,55 +13,49 @@ import java.util.Random;
  */
 public class MidpointDisplacement {
     private final int steps; // Number of recursive steps
-    private final int maximumDisplacement; // Initial displacement magnitude
-    private final double roughness; // Roughness factor for displacement scaling
+    private final double maximumDisplacement; // Initial displacement magnitude
+    private final double roughness; // Roughness factor for displacement
 
-    /**
-     * Initialize displacement parameters ready for generating midpoints.
-     */
-    public MidpointDisplacement(int steps, int maximumDisplacement, double roughness) {
+    /** Initialize displacement parameters ready for generating midpoints. */
+    public MidpointDisplacement(int steps, double maximumDisplacement, double roughness) {
         this.steps = steps;
         this.maximumDisplacement = maximumDisplacement;
         this.roughness = roughness;
     }
 
-    /**
-     * Generates a list of random displaced midpoints between two points.
-     */
+    /** Generates a list of points forming a midpoint displaced line from the given start and end points using the default RNG */
     public List<Point2D> generateMidpoints(Point2D lineStart, Point2D lineFinish) {
         return generateMidpoints(lineStart, lineFinish, (int) (Math.random() * Integer.MAX_VALUE));
     }
 
-    /**
-     * Generates a list of random displaced midpoints between two points given a specified seed for RNG.
-     */
+    /** Generates a list of points forming a midpoint displaced line from the given start and end points. */
     public List<Point2D> generateMidpoints(Point2D lineStart, Point2D lineFinish, int seed) {
         if (lineStart == null || lineFinish == null) {
-            throw new IllegalArgumentException("Line displacedMidpoints cannot be null");
+            throw new IllegalArgumentException("lineStart and lineFinish cannot be null");
         }
+
+        // setup parameters for the initial call to displace().
 
         List<Point2D> displacedMidpoints = new ArrayList<>();
         Random rng = new Random(seed);
 
-        // Convert to Vector2D for easier manipulation
+        // convert to Vector2D for easier manipulation
         Vector2D start = new Vector2D(lineStart.getX(), lineStart.getY());
         Vector2D finish = new Vector2D(lineFinish.getX(), lineFinish.getY());
 
-        displacedMidpoints.add(start); // Add the starting point
+        displacedMidpoints.add(start); // remember to add the starting point
 
-        // Recursively apply displacement
+        // recursively apply displacement
         displace(displacedMidpoints, start, finish, rng, steps, maximumDisplacement);
 
-        displacedMidpoints.add(finish); // Add the ending point
+        displacedMidpoints.add(finish); // remember to add the ending point
         return displacedMidpoints;
     }
 
-    /**
-     * Recursively displaces midpoints along the segment.
-     */
+    /** Recursively displaces midpoints along the segment. */
     private void displace(List<Point2D> points, Vector2D lineStart, Vector2D lineFinish, Random rng, int steps, double maximumDisplacement) {
         if (steps == 0 || maximumDisplacement <= 0) {
-            return; // Base case: stop recursion
+            return;
         }
 
         // Step 1: Calculate the midpoint of the current segment

@@ -12,15 +12,11 @@ import java.util.List;
  *
  * The calculations for control points are based on the algorithm described at:
  * https://math.stackexchange.com/questions/2871559/formula-or-algorithm-to-draw-curved-lines-between-points/4207568#4207568
- * Comment references to points are from the graph also supplied at src/main/resources/graph.png
  */
 public class CompositeBezierCurve {
     private final List<BezierCurve> curves = new ArrayList<>();
 
-    /**
-     * Constructs a CompositeBezierCurve from a list of points.
-     * @param mainPoints The list of points defining the curve sequence.
-     */
+    /** Constructs a CompositeBezierCurve from a list of points.*/
     public CompositeBezierCurve(List<Point2D> mainPoints) {
         createCurves(mainPoints);
     }
@@ -52,14 +48,6 @@ public class CompositeBezierCurve {
         calculateControlPoints(previousPoint, currentPoint, controlPointVector1, controlPointVector1);
     }
 
-    /**
-     * Computes the control points for a Bezier curve segment and adds the curve.
-     *
-     * @param previousPoint The starting point of the curve segment.
-     * @param currentPoint The ending point of the curve segment.
-     * @param controlPointVector1 The tangent direction from the previous point.
-     * @param controlPointVector2 The tangent direction towards the next point.
-     */
     private void calculateControlPoints(Vector2D previousPoint, Vector2D currentPoint, Vector2D controlPointVector1, Vector2D controlPointVector2) {
         // 1/3 of AB added to point A
         Vector2D controlPoint1 = previousPoint.getAdded(controlPointVector1.getDivided(3));
@@ -69,11 +57,7 @@ public class CompositeBezierCurve {
         curves.add(curve);
     }
 
-    /**
-     * Retrieves the list of Bezier curves that make up this composite curve.
-     *
-     * @return A list of BezierCurve objects.
-     */
+    /** Retrieves the list of Bezier curves that make up this composite curve. */
     public List<BezierCurve> getCurves() {
         return curves;
     }

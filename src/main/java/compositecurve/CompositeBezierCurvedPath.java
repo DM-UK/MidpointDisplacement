@@ -8,11 +8,7 @@ import java.util.List;
  * Constructs a smooth curve on a Path2D connecting multiple Bézier curves built from a CompositeBezierCurve
  */
 public class CompositeBezierCurvedPath extends Path2D.Double{
-
-    /**
-     * Constructs a composite Bézier curve path using the given list of points.
-     * @param mainPoints The list of points defining the curve sequence.
-     */
+    /** Constructs a composite Bézier curve path using the given list of points. */
     public CompositeBezierCurvedPath(List<Point2D> mainPoints){
         if (mainPoints == null || mainPoints.size() < 2) {
             throw new IllegalArgumentException("Point list cannot be null or fewer than 2 points");
@@ -23,6 +19,10 @@ public class CompositeBezierCurvedPath extends Path2D.Double{
         moveTo(firstPoint.getX(), firstPoint.getY());
         // Add Bézier curve segments
         addBezierCurves(mainPoints);
+    }
+
+    public void compositeCurveTo(double x, double y){
+        //TODO!
     }
 
     private void addBezierCurves(List<Point2D> mainPoints) {
