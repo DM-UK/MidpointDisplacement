@@ -31,6 +31,7 @@ public class MidpointDisplacedPath extends Path2D.Double {
         this.rng = new Random(rngSeed);
     }
 
+    /** Adds points to the path by drawing lines from current point to the displaced midpoints */
     public void midpointDisplacedLineTo(double x, double y){
         Point2D from = getCurrentPoint();
         Point2D to = new Point2D.Double(x, y);
