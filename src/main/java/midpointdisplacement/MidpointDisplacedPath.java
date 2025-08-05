@@ -9,25 +9,23 @@ import java.util.Random;
 
 /** Path2D with functionality to generate displaced lines from points */
 public class MidpointDisplacedPath extends Path2D.Double {
-    /** Constant for straight-edged path. */
     public static final int STRAIGHT_EDGED = 0;
-    /** Constant for a composite Bezier curved path */
     public static final int COMPOSITE_BEZIER_CURVE = 1;
 
-    private int edgeType;
+    private int edgeConnectionType;
     private MidpointDisplacement midpointDisplacement;
     private Random rng;
 
-    public MidpointDisplacedPath(int steps, int maximumDisplacement, double roughness, int seed, int edgeType) {
-        this(new MidpointDisplacement(steps, maximumDisplacement, roughness), seed, edgeType);
+    public MidpointDisplacedPath(int steps, int maximumDisplacement, double roughness, int seed, int edgeConnectionType) {
+        this(new MidpointDisplacement(steps, maximumDisplacement, roughness), edgeConnectionType, seed);
     }
 
-    public MidpointDisplacedPath(MidpointDisplacement midpointDisplacement, int edgeType, int rngSeed) {
-        if (midpointDisplacement == null | edgeType > 1) {
+    public MidpointDisplacedPath(MidpointDisplacement midpointDisplacement, int edgeConnectionType, int rngSeed) {
+        if (midpointDisplacement == null | edgeConnectionType > 1) {
             throw new IllegalArgumentException("Invalid Arguments");
         }
         this.midpointDisplacement = midpointDisplacement;
-        this.edgeType = edgeType;
+        this.edgeConnectionType = edgeConnectionType;
         this.rng = new Random(rngSeed);
     }
 
@@ -37,7 +35,7 @@ public class MidpointDisplacedPath extends Path2D.Double {
         Point2D to = new Point2D.Double(x, y);
         List<Point2D> points = midpointDisplacement.generateMidpoints(from, to, rng.nextInt());
 
-        if (edgeType == STRAIGHT_EDGED) {
+        if (edgeConnectionType == STRAIGHT_EDGED) {
             for (Point2D p : points) {
                 lineTo(p.getX(), p.getY());
             }

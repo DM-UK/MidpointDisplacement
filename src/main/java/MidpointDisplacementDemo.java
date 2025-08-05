@@ -43,7 +43,7 @@ public class MidpointDisplacementDemo {
     }
 
     private void drawDisplacedPath(Graphics2D g2d, int steps, int maximumDisplacement, double roughness, Point2D start, Point2D finish, int seed) {
-        MidpointDisplacedPath displacedPath = new MidpointDisplacedPath(steps, maximumDisplacement, roughness, MidpointDisplacedPath.COMPOSITE_BEZIER_CURVE, seed);
+        MidpointDisplacedPath displacedPath = new MidpointDisplacedPath(steps, maximumDisplacement, roughness, seed, MidpointDisplacedPath.COMPOSITE_BEZIER_CURVE);
         displacedPath.moveTo(start.getX(), start.getY());
         displacedPath.midpointDisplacedLineTo(finish.getX(), finish.getY());
         g2d.draw(displacedPath);
