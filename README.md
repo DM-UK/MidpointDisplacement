@@ -10,7 +10,7 @@ MidpointDisplacement(int steps, double maximumDisplacement, double roughness)
 public List<Point2D> generateMidpoints(Point2D lineStart, Point2D lineFinish)
 ```
 
-For interfacing with Path2D see: [MidpointDisplacement](https://github.com/DM-UK/MidpointDisplacement/blob/master/src/main/java/midpointdisplacement/MidpointDisplacedPath.java)
+For interfacing with Path2D see: [MidpointDisplacedPath](https://github.com/DM-UK/MidpointDisplacement/blob/master/src/main/java/midpointdisplacement/MidpointDisplacedPath.java)
 
 
 ![screenshot](https://github.com/DM-UK/MidpointDisplacement/blob/master/src/main/resources/demo.png)
