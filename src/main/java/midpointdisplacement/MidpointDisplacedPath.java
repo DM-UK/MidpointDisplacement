@@ -1,5 +1,7 @@
 package midpointdisplacement;
 
+import compositecurve.BezierCurve;
+import compositecurve.CompositeBezierCurve;
 import compositecurve.CompositeBezierCurvedPath;
 
 import java.awt.geom.Path2D;
@@ -30,19 +32,32 @@ public class MidpointDisplacedPath extends Path2D.Double {
     }
 
     /** Adds points to the path by drawing lines from current point to the displaced midpoints */
-    public void midpointDisplacedLineTo(double x, double y){
+    public void displacedLineTo(double x, double y){
+        if (edgeConnectionType == STRAIGHT_EDGED)
+            midpointDisplacedStraightLineTo(x, y);
+        else
+            midpointDisplacedCurveLineTo(x, y);
+    }
+
+    private void midpointDisplacedStraightLineTo(double x, double y){
         Point2D from = getCurrentPoint();
         Point2D to = new Point2D.Double(x, y);
         List<Point2D> points = midpointDisplacement.generateMidpoints(from, to, rng.nextInt());
-
-        if (edgeConnectionType == STRAIGHT_EDGED) {
-            for (Point2D p : points) {
-                lineTo(p.getX(), p.getY());
-            }
+        for (Point2D p : points) {
+            super.lineTo(p.getX(), p.getY());
         }
-        else {
-            CompositeBezierCurvedPath compositeCurves = new CompositeBezierCurvedPath(points);
-            append(compositeCurves, true);
+    }
+
+    private void midpointDisplacedCurveLineTo(double x, double y){
+        Point2D from = getCurrentPoint();
+        Point2D to = new Point2D.Double(x, y);
+        List<Point2D> points = midpointDisplacement.generateMidpoints(from, to, rng.nextInt());
+        CompositeBezierCurve curvedPoints = new CompositeBezierCurve(points);
+
+        for (BezierCurve curve : curvedPoints.getCurves()) {
+            curveTo(curve.control1.x, curve.control1.y,
+                    curve.control2.x, curve.control2.y,
+                    curve.finish.x, curve.finish.y);
         }
     }
 }

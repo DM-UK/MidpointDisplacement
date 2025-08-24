@@ -45,7 +45,7 @@ public class MidpointDisplacementDemo {
     private void drawDisplacedPath(Graphics2D g2d, int steps, int maximumDisplacement, double roughness, Point2D start, Point2D finish, int seed) {
         MidpointDisplacedPath displacedPath = new MidpointDisplacedPath(steps, maximumDisplacement, roughness, seed, MidpointDisplacedPath.COMPOSITE_BEZIER_CURVE);
         displacedPath.moveTo(start.getX(), start.getY());
-        displacedPath.midpointDisplacedLineTo(finish.getX(), finish.getY());
+        displacedPath.displacedLineTo(finish.getX(), finish.getY());
         g2d.draw(displacedPath);
         String rounded = String.format("%.1f", roughness);
         g2d.drawString("roughness = "+rounded, (int) start.getX(), (int) (start.getY() - 25));
