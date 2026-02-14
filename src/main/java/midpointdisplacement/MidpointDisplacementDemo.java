@@ -1,5 +1,4 @@
-import midpointdisplacement.MidpointDisplacedPath;
-import midpointdisplacement.MidpointDisplacement;
+package midpointdisplacement;
 
 import javax.swing.*;
 import java.awt.*;

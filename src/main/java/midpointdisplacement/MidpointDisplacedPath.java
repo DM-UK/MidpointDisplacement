@@ -1,8 +1,7 @@
 package midpointdisplacement;
 
-import compositecurve.BezierCurve;
-import compositecurve.CompositeBezierCurve;
-import compositecurve.CompositeBezierCurvedPath;
+import midpointdisplacement.compositecurve.BezierCurve;
+import midpointdisplacement.compositecurve.CompositeBezierCurve;
 
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
@@ -17,6 +16,7 @@ public class MidpointDisplacedPath extends Path2D.Double {
     private int edgeConnectionType;
     private MidpointDisplacement midpointDisplacement;
     private Random rng;
+    private int seed;
 
     public MidpointDisplacedPath(int steps, int maximumDisplacement, double roughness, int seed, int edgeConnectionType) {
         this(new MidpointDisplacement(steps, maximumDisplacement, roughness), edgeConnectionType, seed);
@@ -29,6 +29,10 @@ public class MidpointDisplacedPath extends Path2D.Double {
         this.midpointDisplacement = midpointDisplacement;
         this.edgeConnectionType = edgeConnectionType;
         this.rng = new Random(rngSeed);
+    }
+
+    public MidpointDisplacedPath() {
+        
     }
 
     /** Adds points to the path by drawing lines from current point to the displaced midpoints */
@@ -59,5 +63,14 @@ public class MidpointDisplacedPath extends Path2D.Double {
                     curve.control2.x, curve.control2.y,
                     curve.finish.x, curve.finish.y);
         }
+    }
+
+    public void setMidpointDisplacement(MidpointDisplacement displacement) {
+        this.midpointDisplacement = displacement;
+    }
+
+    public void setSeed(int seed) {
+        this.seed = seed;
+        this.rng = new Random(seed);
     }
 }

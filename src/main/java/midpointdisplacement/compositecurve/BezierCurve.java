@@ -1,4 +1,4 @@
-package compositecurve;
+package midpointdisplacement.compositecurve;
 
 import java.awt.geom.Point2D;
 

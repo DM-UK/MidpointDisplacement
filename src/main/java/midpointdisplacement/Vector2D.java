@@ -1,4 +1,4 @@
-package geometry;
+package midpointdisplacement;
 
 import java.awt.geom.Point2D;
 

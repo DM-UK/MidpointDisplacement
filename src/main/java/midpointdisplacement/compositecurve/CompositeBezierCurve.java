@@ -1,6 +1,6 @@
-package compositecurve;
+package midpointdisplacement.compositecurve;
 
-import geometry.Vector2D;
+import midpointdisplacement.Vector2D;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
